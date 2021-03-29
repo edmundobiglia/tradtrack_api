@@ -12,4 +12,12 @@ defmodule TradtrackWeb.UsersController do
       |> render("create.json", user: user)
     end
   end
+
+  def delete(conn, %{id: id}) do
+    with {:ok, %User{} = user} <- Tradtrack.delete_user(id) do
+      conn
+      |> put_status(:ok)
+      |> render("delete.json", user: user)
+    end
+  end
 end

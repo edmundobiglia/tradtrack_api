@@ -8,7 +8,12 @@ defmodule TradtrackWeb.Router do
   scope "/api", TradtrackWeb do
     pipe_through :api
 
+    # User
     post "/users", UsersController, :create
+    delete "/users/:id", UsersController, :delete
+
+    # Project
+    post "/projects", ProjectsController, :create
   end
 
   # Enables LiveDashboard only for development
