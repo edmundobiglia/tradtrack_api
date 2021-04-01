@@ -14,6 +14,7 @@ defmodule TradtrackWeb.Router do
 
     # Project
     post "/projects", ProjectsController, :create
+    delete "/projects/:id", ProjectsController, :delete
   end
 
   # Enables LiveDashboard only for development

@@ -13,7 +13,7 @@ defmodule TradtrackWeb.UsersController do
     end
   end
 
-  def delete(conn, %{id: id}) do
+  def delete(conn, %{"id" => id}) do
     with {:ok, %User{} = user} <- Tradtrack.delete_user(id) do
       conn
       |> put_status(:ok)

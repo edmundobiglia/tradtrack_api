@@ -20,18 +20,11 @@ defmodule TradtrackWeb.UsersView do
 
   def render(
         "delete.json",
-        %{
-          user: %User{id: id, name: name, last_name: last_name, nickname: nickname}
-        }
+        %{user: %User{id: id}}
       ) do
     %{
-      message: "User created successfully.",
-      user: %{
-        id: id,
-        name: name,
-        last_name: last_name,
-        nickname: nickname
-      }
+      message: "User deleted successfully.",
+      user: %{id: id}
     }
   end
 end

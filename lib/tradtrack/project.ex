@@ -7,6 +7,20 @@ defmodule Tradtrack.Project do
 
   alias Tradtrack.User
 
+  @derive {Jason.Encoder,
+           only: [
+             :code,
+             :client,
+             :word_count,
+             :rate,
+             :date_received,
+             :delivery_date,
+             :delivery_status,
+             :payment_status,
+             :notes,
+             :user_id
+           ]}
+
   @primary_key {:id, :binary_id, autogenerate: true}
 
   @foreign_key_type :binary_id
@@ -20,7 +34,8 @@ defmodule Tradtrack.Project do
     :delivery_date,
     :delivery_status,
     :payment_status,
-    :notes
+    :notes,
+    :user_id
   ]
 
   @required_fields [:code, :client, :word_count, :rate, :date_received, :delivery_date, :user_id]
