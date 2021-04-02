@@ -6,7 +6,7 @@ defmodule TradtrackWeb.ProjectsController do
   action_fallback TradtrackWeb.FallbackController
 
   def create(conn, params) do
-    with {:ok, %Project{} = project} <- Tradtrack.create_project(params) do
+    with {:ok, %Project{} = project} <- Tradtrack.create_project(params) |> IO.inspect() do
       conn
       |> put_status(:created)
       |> render("create.json", project: project)

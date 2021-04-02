@@ -1,9 +1,10 @@
 defmodule TradtrackWeb.ProjectsView do
   alias Tradtrack.Project
 
-  def render("create.json", %{project: %Project{} = project}) do
+  def render("create.json", %{project: %Project{id: id} = project}) do
     %{
       message: "Project created successfully",
+      project_id: id,
       project: project
     }
   end
