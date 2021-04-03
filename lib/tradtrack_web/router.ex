@@ -11,10 +11,12 @@ defmodule TradtrackWeb.Router do
     # User
     post "/users", UsersController, :create
     delete "/users/:id", UsersController, :delete
+    patch "/users/:id", UsersController, :update
 
     # Project
     post "/projects", ProjectsController, :create
     delete "/projects/:id", ProjectsController, :delete
+    patch "/projects/:id", ProjectsController, :update
   end
 
   # Enables LiveDashboard only for development

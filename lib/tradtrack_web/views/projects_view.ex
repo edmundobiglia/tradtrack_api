@@ -17,4 +17,13 @@ defmodule TradtrackWeb.ProjectsView do
       }
     }
   end
+
+  def render("update.json", %{project: %Project{id: id}}) do
+    %{
+      message: "Project updated successfully",
+      project: %{
+        id: id
+      }
+    }
+  end
 end

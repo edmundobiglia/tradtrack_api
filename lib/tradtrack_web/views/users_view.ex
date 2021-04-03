@@ -27,4 +27,11 @@ defmodule TradtrackWeb.UsersView do
       user: %{id: id}
     }
   end
+
+  def render("update.json", %{user: %User{} = user}) do
+    %{
+      message: "User updated successfully.",
+      user: user
+    }
+  end
 end

@@ -84,6 +84,15 @@ defmodule Tradtrack.Project do
     end
   end
 
+  # defp validate_delivery_date(
+  #        %Changeset{
+  #          valid?: true,
+  #          changes: %{}
+  #        } = changeset
+  #      ) do
+  #   changeset
+  # end
+
   defp calculate_total(
          %Changeset{valid?: true, changes: %{word_count: word_count, rate: rate}} = changeset
        ) do
@@ -91,4 +100,8 @@ defmodule Tradtrack.Project do
 
     change(changeset, %{total: total})
   end
+
+  # defp calculate_total(%Changeset{valid?: true, changes: %{}} = changeset) do
+  #   changeset
+  # end
 end

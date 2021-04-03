@@ -20,4 +20,12 @@ defmodule TradtrackWeb.UsersController do
       |> render("delete.json", user: user)
     end
   end
+
+  def update(conn, params) do
+    with {:ok, user} <- Tradtrack.update_user(params) do
+      conn
+      |> put_status(:ok)
+      |> render("update.json", user: user)
+    end
+  end
 end

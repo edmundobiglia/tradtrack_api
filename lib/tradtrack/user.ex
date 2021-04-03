@@ -7,9 +7,19 @@ defmodule Tradtrack.User do
 
   alias Tradtrack.Project
 
+  @derive {Jason.Encoder,
+           only: [
+             :name,
+             :last_name,
+             :email,
+             :nickname,
+             :password,
+             :password_hash
+           ]}
+
   @primary_key {:id, :binary_id, autogenerate: true}
 
-  @required_params [:name, :last_name, :email, :nickname, :password]
+  @required_params [:name, :last_name, :email, :nickname]
 
   @email_regex ~r/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/
 
@@ -25,8 +35,8 @@ defmodule Tradtrack.User do
     timestamps()
   end
 
-  def changeset(params) do
-    %__MODULE__{}
+  def changeset(user \\ %__MODULE__{}, params) do
+    user
     |> cast(params, @required_params)
     |> validate_required(@required_params)
     |> unique_constraint([:email])

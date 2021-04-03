@@ -20,4 +20,12 @@ defmodule TradtrackWeb.ProjectsController do
       |> render("delete.json", project: project)
     end
   end
+
+  def update(conn, params) do
+    with {:ok, %Project{} = project} <- Tradtrack.update_project(params) do
+      conn
+      |> put_status(:ok)
+      |> render("update.json", project: project)
+    end
+  end
 end
