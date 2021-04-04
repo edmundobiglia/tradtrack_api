@@ -1,28 +1,11 @@
 defmodule Tradtrack.Projects.Create do
-  alias Tradtrack.{Repo, Project}
+  alias Tradtrack.{Project, Repo}
 
-  def call(%{
-        "code" => code,
-        "client" => client,
-        "word_count" => word_count,
-        "rate" => rate,
-        "user_id" => user_id,
-        "date_received" => iso_date_received,
-        "delivery_date" => iso_delivery_date
-      }) do
-    {:ok, date_received} = Date.from_iso8601(iso_date_received)
-    {:ok, delivery_date, 0} = DateTime.from_iso8601(iso_delivery_date)
+  def call(%{"word_count" => word_count, "rate" => rate} = params) do
+    total = word_count * rate
 
-    params = %{
-      code: code,
-      client: client,
-      word_count: word_count,
-      rate: rate,
-      user_id: user_id,
-      date_received: date_received,
-      delivery_date: delivery_date
-    }
+    updated_params = Map.put(params, "total", total)
 
-    Repo.insert(Project.changeset(params))
+    Repo.insert(Project.changeset(updated_params))
   end
 end

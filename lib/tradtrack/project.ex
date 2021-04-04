@@ -13,6 +13,7 @@ defmodule Tradtrack.Project do
              :client,
              :word_count,
              :rate,
+             :total,
              :date_received,
              :delivery_date,
              :delivery_status,
@@ -30,6 +31,7 @@ defmodule Tradtrack.Project do
     :client,
     :word_count,
     :rate,
+    :total,
     :date_received,
     :delivery_date,
     :delivery_status,
@@ -38,7 +40,16 @@ defmodule Tradtrack.Project do
     :user_id
   ]
 
-  @required_fields [:code, :client, :word_count, :rate, :date_received, :delivery_date, :user_id]
+  @required_fields [
+    :code,
+    :client,
+    :word_count,
+    :rate,
+    :total,
+    :date_received,
+    :delivery_date,
+    :user_id
+  ]
 
   schema "projects" do
     field :code, :string
@@ -62,7 +73,6 @@ defmodule Tradtrack.Project do
     |> check_constraint(:word_count, name: :word_count_must_be_greater_than_zero)
     |> check_constraint(:rate, name: :rate_must_be_greater_than_zero)
     |> validate_delivery_date()
-    |> calculate_total()
   end
 
   defp validate_delivery_date(
@@ -84,24 +94,12 @@ defmodule Tradtrack.Project do
     end
   end
 
-  # defp validate_delivery_date(
-  #        %Changeset{
-  #          valid?: true,
-  #          changes: %{}
-  #        } = changeset
-  #      ) do
-  #   changeset
-  # end
-
-  defp calculate_total(
-         %Changeset{valid?: true, changes: %{word_count: word_count, rate: rate}} = changeset
+  defp validate_delivery_date(
+         %Changeset{
+           valid?: true,
+           changes: %{}
+         } = changeset
        ) do
-    total = Decimal.mult(word_count, rate)
-
-    change(changeset, %{total: total})
+    changeset
   end
-
-  # defp calculate_total(%Changeset{valid?: true, changes: %{}} = changeset) do
-  #   changeset
-  # end
 end
