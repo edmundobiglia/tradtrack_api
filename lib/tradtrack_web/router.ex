@@ -3,6 +3,7 @@ defmodule TradtrackWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    # aqui por exemplo poderia criar um plug de autenticação
   end
 
   scope "/api", TradtrackWeb do
