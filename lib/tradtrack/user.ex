@@ -36,8 +36,6 @@ defmodule Tradtrack.User do
   end
 
   def changeset(user \\ %__MODULE__{}, params) do
-    IO.inspect(params, label: "params!!!")
-
     user
     |> cast(params, @required_params)
     |> validate_required(@required_params)
@@ -50,5 +48,14 @@ defmodule Tradtrack.User do
 
   defp put_password_hash(%Changeset{valid?: true, changes: %{password: password}} = changeset) do
     change(changeset, Bcrypt.add_hash(password))
+  end
+
+  def update_changeset(user \\ %__MODULE__{}, params) do
+    user
+    |> cast(params, @required_params)
+    |> unique_constraint([:email])
+    |> unique_constraint([:nickname])
+    |> validate_format(:email, @email_regex)
+    |> validate_length(:password, min: 6)
   end
 end

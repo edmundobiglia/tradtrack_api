@@ -5,7 +5,7 @@ defmodule Tradtrack.Users.Update do
     user = Repo.get(User, id)
 
     user
-    |> User.changeset(changes)
+    |> User.update_changeset(changes)
     |> Repo.update()
   end
 end

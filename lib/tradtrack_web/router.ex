@@ -17,6 +17,10 @@ defmodule TradtrackWeb.Router do
     post "/users", UsersController, :create
   end
 
+  # para todas as rotas que passam pelo pipeline auth,
+  # as requisições deverão incluir no seu cabeçalho
+  # o token JWT, caso contrário, o acesso às rotas não
+  # será permitido
   scope "/api", TradtrackWeb do
     pipe_through [:api, :auth]
 
@@ -29,6 +33,10 @@ defmodule TradtrackWeb.Router do
     post "/projects", ProjectsController, :create
     delete "/projects/:id", ProjectsController, :delete
     patch "/projects/:id", ProjectsController, :update
+    # get "/projects/", ProjectsController, :get
+    # get cases
+    # get one specific project
+    # get all projects
   end
 
   # Enables LiveDashboard only for development

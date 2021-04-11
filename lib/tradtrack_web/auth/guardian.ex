@@ -14,6 +14,7 @@ defmodule TradtrackWeb.Auth.Guardian do
     Ecto.NoResultsError -> {:error, :resource_not_found}
   end
 
+  # em caso de sucesso devolve o token
   def authenticate_user(email, password) do
     with {:ok, user} <- Tradtrack.get_user(email) do
       case verify_password(password, user.password_hash) do
