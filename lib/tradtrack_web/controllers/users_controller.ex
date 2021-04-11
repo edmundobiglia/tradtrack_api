@@ -2,14 +2,24 @@ defmodule TradtrackWeb.UsersController do
   use TradtrackWeb, :controller
 
   alias Tradtrack.User
+  alias TradtrackWeb.Auth.Guardian
 
   action_fallback TradtrackWeb.FallbackController
 
   def create(conn, params) do
-    with {:ok, %User{} = user} <- Tradtrack.create_user(params) do
+    with {:ok, %User{} = user} <- Tradtrack.create_user(params),
+         {:ok, token, _claims} <- Guardian.encode_and_sign(user) do
       conn
       |> put_status(:created)
-      |> render("create.json", user: user)
+      |> render("create.json", %{user: user, token: token})
+    end
+  end
+
+  def signin(conn, %{"email" => email, "password" => password}) do
+    with {:ok, user, token} <- Guardian.authenticate_user(email, password) do
+      conn
+      |> put_status(:created)
+      |> render("authenticate.json", %{user: user, token: token})
     end
   end
 

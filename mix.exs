@@ -44,7 +44,10 @@ defmodule Tradtrack.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
-      {:bcrypt_elixir, "~> 2.0"}
+      {:bcrypt_elixir, "~> 2.0"},
+      {:guardian, "~> 2.0"},
+      {:comeonin, "~> 5.3"},
+      {:poison, "~> 3.1"}
     ]
   end
 

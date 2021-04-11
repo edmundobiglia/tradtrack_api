@@ -19,7 +19,7 @@ defmodule Tradtrack.User do
 
   @primary_key {:id, :binary_id, autogenerate: true}
 
-  @required_params [:name, :last_name, :email, :nickname]
+  @required_params [:name, :last_name, :email, :nickname, :password]
 
   @email_regex ~r/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/
 
@@ -36,6 +36,8 @@ defmodule Tradtrack.User do
   end
 
   def changeset(user \\ %__MODULE__{}, params) do
+    IO.inspect(params, label: "params!!!")
+
     user
     |> cast(params, @required_params)
     |> validate_required(@required_params)
@@ -49,6 +51,4 @@ defmodule Tradtrack.User do
   defp put_password_hash(%Changeset{valid?: true, changes: %{password: password}} = changeset) do
     change(changeset, Bcrypt.add_hash(password))
   end
-
-  defp put_password_hash(changeset), do: changeset
 end

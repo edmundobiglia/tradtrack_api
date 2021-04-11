@@ -6,13 +6,24 @@ defmodule TradtrackWeb.Router do
     # aqui por exemplo poderia criar um plug de autenticação
   end
 
+  pipeline :auth do
+    plug TradtrackWeb.Auth.Pipeline
+  end
+
   scope "/api", TradtrackWeb do
     pipe_through :api
 
     # User
     post "/users", UsersController, :create
+  end
+
+  scope "/api", TradtrackWeb do
+    pipe_through [:api, :auth]
+
+    # User
     delete "/users/:id", UsersController, :delete
     patch "/users/:id", UsersController, :update
+    post "/users/signin", UsersController, :signin
 
     # Project
     post "/projects", ProjectsController, :create
