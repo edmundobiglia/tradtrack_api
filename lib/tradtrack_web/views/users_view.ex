@@ -37,10 +37,10 @@ defmodule TradtrackWeb.UsersView do
     }
   end
 
-  def render("authenticate.json", %{user: user, token: token}) do
+  def render("authenticate.json", %{user: %User{id: id, email: email}, token: token}) do
     %{
       message: "User authenticated successfully.",
-      user: user,
+      user: %{id: id, email: email},
       token: token
     }
   end

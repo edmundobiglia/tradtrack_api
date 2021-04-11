@@ -15,6 +15,7 @@ defmodule TradtrackWeb.Router do
 
     # User
     post "/users", UsersController, :create
+    post "/users/signin", UsersController, :signin
   end
 
   # para todas as rotas que passam pelo pipeline auth,
@@ -27,7 +28,6 @@ defmodule TradtrackWeb.Router do
     # User
     delete "/users/:id", UsersController, :delete
     patch "/users/:id", UsersController, :update
-    post "/users/signin", UsersController, :signin
 
     # Project
     post "/projects", ProjectsController, :create
